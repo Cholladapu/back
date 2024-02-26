@@ -56,7 +56,7 @@ def delete_student(prod_id):
     else:
         return jsonify({"error": "Product not found"}), 404
 
-app.route("/products/<string:prod_id>", methods=["PUT"])
+@app.route("/products/<string:prod_id>", methods=["PUT"])
 def update_product(prod_id):
     data = request.get_json()
 
