@@ -1,4 +1,4 @@
-from flask import Flask,jsonify
+from flask import Flask,jsonify,request
 from flask_cors import CORS
 from pymongo.mongo_client import MongoClient
 app = Flask(__name__)
@@ -33,18 +33,18 @@ def get_all_products():
 def add_product():
     data = request.get_json()
     
-    existing_product = collection.find_one({"id": data.get("_id")})
+    existing_product = collection.find_one({"_id": data.get("_id")})
     if existing_product:
         return jsonify({"error": "Cannot add product"}),500
     
     new_product = {
-        "id" : data.get("id"),
+        "_id" : data.get("_id"),
         "name" : data.get("name"),
         "price" : data.get("price"),
         "img" : data.get("img")
     }
     result = collection.insert_one(new_product)
-    return jsonify({"product"})
+    return jsonify({"product": new_product}), 200
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0",port=5000,debug=True)
