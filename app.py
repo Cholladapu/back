@@ -1,9 +1,14 @@
 from flask import Flask,jsonify
 from flask_cors import CORS
+from pymongo.mongo_client import MongoClient
 app = Flask(__name__)
 CORS(app)
 
-uri = ""
+uri = "mongodb+srv://chollada:i2kYflYG6WfAHetF@cluster0.kua1tuq.mongodb.net/retryWrites=true&w=majority"
+
+client = MongoClient(uri)
+db = client["Product"]
+collection = db["std_info"]
 
 products=[
 {"id":0,"name":"Notebook Acer Swift","price":45900,"img":"https://img.advice.co.th/images_nas/pic_product4/A0147295/A0147295_s.jpg"},
