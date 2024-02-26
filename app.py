@@ -55,6 +55,25 @@ def delete_student(prod_id):
         return jsonify({"message": "Product deleted successfully"}), 200
     else:
         return jsonify({"error": "Product not found"}), 404
-    
+
+app.route("/products/<string:prod_id>", methods=["PUT"])
+def update_product(prod_id):
+    data = request.get_json()
+
+    existing_product = collection.find_one({"_id": prod_id})
+
+    if existing_product:
+        updated_product = {
+            "name": data.get("name", existing_product["name"]),
+            "price": data.get("price", existing_product["price"]),
+            "img": data.get("img", existing_product["img"])
+        }
+
+        collection.update_one({"_id": prod_id}, {"$set": updated_product})
+
+        return jsonify({"product": updated_product}), 200
+    else:
+        return jsonify({"error": "Product not found"}), 404
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0",port=5000,debug=True)
