@@ -2,6 +2,9 @@ from flask import Flask,jsonify
 from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
+
+uri = ""
+
 products=[
 {"id":0,"name":"Notebook Acer Swift","price":45900,"img":"https://img.advice.co.th/images_nas/pic_product4/A0147295/A0147295_s.jpg"},
 {"id":1,"name":"Notebook Asus Vivo","price":19900,"img":"https://img.advice.co.th/images_nas/pic_product4/A0146010/A0146010_s.jpg"},
