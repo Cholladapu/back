@@ -8,7 +8,7 @@ uri = "mongodb+srv://chollada:i2kYflYG6WfAHetF@cluster0.kua1tuq.mongodb.net/retr
 
 client = MongoClient(uri)
 db = client["Product"]
-collection = db["std_info"]
+collection = db["dataprod"]
 
 products=[
 {"id":0,"name":"Notebook Acer Swift","price":45900,"img":"https://img.advice.co.th/images_nas/pic_product4/A0147295/A0147295_s.jpg"},
