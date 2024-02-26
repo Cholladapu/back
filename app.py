@@ -1,14 +1,6 @@
 from flask import Flask,jsonify
-from pymongo.mongo_client import MongoClient
 from flask_cors import CORS
 app = Flask(__name__)
-
-uri = "mongodb+srv://chollada:i2kYflYG6WfAHetF@cluster0.kua1tuq.mongodb.net/retryWrites=true&w=majority"
-
-client = MongoClient(uri)
-db = client["Products"]
-collection = db["week10"]
-
 CORS(app)
 products=[
 {"id":0,"name":"Notebook Acer Swift","price":45900,"img":"https://img.advice.co.th/images_nas/pic_product4/A0147295/A0147295_s.jpg"},
@@ -25,29 +17,6 @@ def hello_world():
 @app.route("/products",methods=["GET"])
 def get_all_products():
     return jsonify(products),200
-
-@app.route("/products", methods=["POST"])
-def add_product():
-    new_product = request.json
-    products.append(new_product)
-    return jsonify({"message": "Product added successfully"}), 201
-
-@app.route("/products/<int:product_id>", methods=["PUT"])
-def update_product(product_id):
-    updated_product = request.get_json
-    for i, product in enumerate(products):
-        if product["id"] == product_id:
-            products[i] = updated_product
-            return jsonify({"message": f"Product with ID {product_id} updated successfully"}), 200
-    return jsonify({"message": f"Product with ID {product_id} not found"}), 404
-
-@app.route("/products/<int:product_id>", methods=["DELETE"])
-def delete_product(product_id):
-    for i, product in enumerate(products):
-        if product["id"] == product_id:
-            del products[i]
-            return jsonify({"message": f"Product with ID {product_id} deleted successfully"}), 200
-    return jsonify({"message": f"Product with ID {product_id} not found"}), 404
 
 
 if __name__ == "__main__":
