@@ -21,10 +21,10 @@ def get_all_products():
     
     for product in products:
         product_data = {
-            "ID" : str(product["_id"]),
-            "Name" : product["name"],
-            "Price" : product["price"],
-            "IMG": product["img"]
+            "_id" : str(product["_id"]),
+            "name" : product["name"],
+            "price" : product["price"],
+            "img": product["img"]
         }
         product_list.append(product_data)
     return jsonify({"products": product_list})
