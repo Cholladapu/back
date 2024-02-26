@@ -46,5 +46,15 @@ def add_product():
     result = collection.insert_one(new_product)
     return jsonify({"product": new_product}), 200
 
+@app.route("/products/<string:prod_id>", methods=["DELETE"])
+def delete_student(prod_id):
+    existing_student = collection.find_one({"_id": prod_id})
+
+    if existing_student:
+        collection.delete_one({"_id": prod_id})
+        return jsonify({"message": "Product deleted successfully"}), 200
+    else:
+        return jsonify({"error": "Product not found"}), 404
+    
 if __name__ == "__main__":
     app.run(host="0.0.0.0",port=5000,debug=True)
