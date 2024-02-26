@@ -24,7 +24,18 @@ def hello_world():
 
 @app.route("/products",methods=["GET"])
 def get_all_products():
-    return jsonify(products),200
+    products = list(collection.find({}))
+    product_list = []
+    
+    for product in products:
+        product_data = {
+            "ID" : str(product["_id"]),
+            "Name" : product["name"],
+            "Price" : product["price"],
+            "IMG": product["img"]
+        }
+        product_list.append(product_data)
+    return jsonify({"products": product_list})
 
 @app.route("/products", methods=["POST"])
 def add_product():
